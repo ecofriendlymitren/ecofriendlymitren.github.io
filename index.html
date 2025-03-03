@@ -7,12 +7,11 @@
     <style>
         body {
             position: relative;
-            animation: backgroundColorChange 20s linear infinite;
+            animation: backgroundColorChange 10s linear infinite;
         }
         @keyframes backgroundColorChange {
             0% { background-color: purple; }
-            33% { background-color: pink; }
-            66% { background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); }
+            50% { background-color: pink; }
             100% { background-color: purple; }
         }
         .heart-overlay {
@@ -43,9 +42,18 @@
             position: relative;
             z-index: 10;
         }
+        .message-container, .heart-overlay { 
+            display: none; 
+        }
+        #surprise-prompt {
+            text-align: center;
+            font-size: 20px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
+    <div id="surprise-prompt">Click for a surprise!</div>
     <div class="message-container">
         <h1>Happy Birthday Amma!</h1>
         <p>Thank you for bringing me up all these years, even despite struggling through some of it.</p>
@@ -58,18 +66,25 @@
     </div>
     <div class="heart-overlay" id="heartOverlay"></div>
     <script>
+        const surprisePrompt = document.getElementById('surprise-prompt');
+        const messageContainer = document.querySelector('.message-container');
         const heartOverlay = document.getElementById('heartOverlay');
         const heartSymbol = '❤️';
         const numHearts = 50;
-        for (let i = 0; i < numHearts; i++) {
-            const heart = document.createElement('div');
-            heart.classList.add('heart');
-            heart.textContent = heartSymbol;
-            heart.style.left = `${Math.random() * 100}%`;
-            heart.style.top = `${Math.random() * 100}%`;
-            heart.style.animationDelay = `${Math.random() * 5}s`;
-            heartOverlay.appendChild(heart);
-        }
+        surprisePrompt.addEventListener('click', () => {
+            surprisePrompt.style.display = 'none';
+            messageContainer.style.display = 'block';
+            heartOverlay.style.display = 'block';
+            for (let i = 0; i < numHearts; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.textContent = heartSymbol;
+                heart.style.left = `${Math.random() * 100}%`;
+                heart.style.top = `${Math.random() * 100}%`;
+                heart.style.animationDelay = `${Math.random() * 5}s`;
+                heartOverlay.appendChild(heart);
+            }
+        });
     </script>
 </body>
 </html>
